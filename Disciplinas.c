@@ -1,40 +1,42 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-typedef struct Disciplina{
-	char codigo[5];
-	char nome[150];
-	int creditos;
-}Disciplina;
-typedef struct Disciplinas{
-    Disciplina *p[100];
-    int top;
-}Disciplinas;
+#include "DISP.h"
 void ConsultaDisciplina(char cod[5]){
-	FILE * fp = fopen("teste.txt", "r");
-	Disciplinas carrega;//declarar isso como global no main ou .h
-	//for(int i=0;i<30;i++){
+	FILE * fp = fopen("Disciplinas.txt", "r");
+	const char s[2] = ",";
+	char *token;
+	char linha[100];
+	
+	for(int a=0; a<31;a++){
 		Disciplina * aux = (Disciplina *)malloc(sizeof(Disciplina));
-		fscanf(fp,"%s,%s,%d\n",aux->codigo,aux->nome,&aux->creditos);	
-		printf("%s/ %s/ %d\n", aux->codigo,aux->nome,&aux->creditos);
-		//fscanf(fp,"%s,",aux->nome);
-		//fscanf(fp,"%d\n",&aux->creditos);
-		//carrega.p[i]=aux;
-	//}
-	fclose(fp);
-	
-	
-	for(int i=0;i<31;i++){
-//		printf("%s\n", carrega.p[5]);
-		//if(strcmp (cod,carrega.p[i]->codigo) == 0){
-			//printf("Nome da siciplina: %s\n",carrega.p[i]->nome);
-		//}	
+		fgets(linha, 100, fp);
+		token = strtok(linha, s);
+		for(int b=0;b<3;b++) {
+        	if(b==0){
+				char sub[6];
+				for(int ee=0;ee<5;ee++){
+					sub[ee] = token[ee];
+				}
+				strcpy(aux->codigo,sub);
+				//printf( "%s\n", aux->codigo);
+			}
+    		if(b==1){
+				strcpy(aux->nome,token);
+				//printf( "%s\n", aux->nome);
+			}
+			if(b==2){
+				aux->creditos= token[0] - 48;
+				//printf( "%d\n", aux->creditos);
+			}
+    		token = strtok(NULL, s);
+   		}
+		DISP.p[a]=aux;	
 	}
-}
- int main (){
-	char busca[100];	
-	printf("Digite o codigo da disciplina: ");
-	scanf("%s", &busca);
-	ConsultaDisciplina(busca);
-return 0;
+	fclose(fp);
+	//AGORA SIM VAI PESQUISAR
+	for(int a=0; a<31;a++){
+		if(strcmp (DISP.p[a]->codigo, cod) == 0)
+			printf("nome:%s\ncreditos:%d\n",DISP.p[a]->nome,DISP.p[a]->creditos);
+	}
 }

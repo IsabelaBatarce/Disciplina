@@ -1,6 +1,6 @@
-EB101,Cálculo I,6
-EB102,Geometria Analítica e Álgebra Linear,6
-SI010,Estrutura de Dados II,4
+EB101,CalculoI,6
+EB102,Geometria_Analítica_e_Álgebra_Linear,6
+SI010,Estrutura_de_DadosII,4
 SI100,Algoritmos e Programação de Computadores I,4
 SI102,Seminários I,2
 SI200,Algoritmos e Programação de Computadores II,4
@@ -29,4 +29,3 @@ TT060,Gestão de Projetos,4
 TT106,Organização e Arquitetura de Computadores,4
 TT304,Sistemas Operacionais,4
 TT350,Administração de Empresas,4
-
