@@ -40,3 +40,77 @@ void ConsultaDisciplina(char cod[5]){
 			printf("nome:%s\ncreditos:%d\n",DISP.p[a]->nome,DISP.p[a]->creditos);
 	}
 }
+
+void cadastroAluno(){
+	Aluno *aux;
+	Alunos *x;
+	
+	printf("Digite o RA do Aluno:\n");
+	fgets(aux->ra,10,stdin);
+	printf("Digite o nome do Aluno:\n");
+	fgets(aux->nome,1000,stdin);
+	printf("Digite o login:\n");
+	fgets(aux->login,1000,stdin);
+	printf("Digite a senha\n");
+	fgets(aux->senha,1000,stdin);
+	x->a[x->top]=*aux;//*=content of
+	x->top = x->top+1;	
+	FILE *fp;
+	fp=fopen("Alunos.txt","a");
+	fprintf(fp,"%s",aux->ra);
+	fprintf(fp,"%s",aux->nome);
+	fprintf(fp,"%s",aux->login);
+	fprintf(fp,"%s",aux->senha);
+	fclose(fp);
+}
+
+Alunos* NewAlunos(){
+	Alunos * aux = (Alunos *)malloc(sizeof(Alunos));
+	aux->top=0;
+	return aux;
+}
+//rever a logica
+Aluno* NewAluno(){
+	Aluno * aux = (Aluno *)malloc(sizeof(Aluno));
+	return aux;
+}
+int loginAluno(){
+	Aluno *a;
+	Alunos *x;
+	char login[1000];
+	char senha[1000];
+	int i,retorno,aux,cont=0;
+	while(cont==0){
+
+		
+		printf("Usuário:\n");
+		fgets(login,1000,stdin);
+		printf("Senha:\n");
+		fgets(senha,1000,stdin);
+		FILE *fp;
+		fp = fopen("Alunos.txt","r");
+		for(i=0;i<x->top;i++){
+			fscanf(fp,"%s", x->a[i].ra);		
+			fscanf(fp,"%s", x->a[i].nome);
+			fscanf(fp,"%s", x->a[i].login);	
+			fscanf(fp,"%s", x->a[i].senha);	
+		}
+		fclose(fp);
+		for(i=0;i<x->top;i++){
+			retorno = strcmp(login, x->a[i].login);
+			aux = strcmp(login, x->a[i].senha);
+			if((retorno && aux) == 0){
+				cont++;
+				break;		
+			}
+		}
+
+		if(cont==0){
+			printf("Login inválido tente novamente\n");
+			return 1;
+		}
+		else{
+			return 0;
+		}
+	}
+}
