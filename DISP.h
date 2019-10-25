@@ -1,21 +1,20 @@
 //parte do aluno
 typedef struct Aluno{
-	char ra[1000];
-	char nome[1000];
-	char senha[1000];
-	char login[1000];
+	char ra[100];
+	char nome[100];
+	char senha[100];
+	char login[100];
 
 }Aluno;
 
 typedef struct Alunos{
-	Aluno *a;
+	Aluno *a[100];
 	int top;
 }Alunos;
 
-
-
+Aluno * newAluno(char *ra, char *nome, char *log, char *sen);
 void cadastroAluno();
-int loginAluno();
+int loginAluno(Alunos*x);
 
 //parte das disciplinas
 typedef struct Disciplina{

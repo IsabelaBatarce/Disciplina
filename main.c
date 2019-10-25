@@ -7,19 +7,27 @@
 int main (){
 	char busca[100];
 	int escolha=1;
-
-	if(loginAluno()==0){
+	Alunos * x = (Alunos *)malloc(sizeof(Alunos));
+	x->top=1;
+	
+	if(loginAluno(x)==0){
 	while(escolha !=0){
+		printf("**** MENU ****\n0 - SAIR \n");
+		printf("1 - Buscar disciplina \n");
+		printf("2 - Cadastrar aluno \n");
+		scanf("%d",&escolha);	
+			
 		switch(escolha){
 			case 1:{
+				printf("***Pesquisar disciplinas*** \n");
 				printf("Digite o codigo da disciplina: ");
 				scanf("%s", busca);
 				ConsultaDisciplina(busca);
 				break;
 			}
 			case 2:{
-				printf("OUTRA opçao ");
-				
+				printf("***Cadastrar aluno*** \n");
+				cadastroAluno();
 				break;
 			}
 			default:{
@@ -32,7 +40,7 @@ int main (){
 		}
 	}
 	}else{
-		printf("login invalido")
+		printf("login invalido");
 	}
 		
 	

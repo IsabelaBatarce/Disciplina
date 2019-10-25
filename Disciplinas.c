@@ -39,6 +39,15 @@ void ConsultaDisciplina(char cod[5]){
 		if(strcmp (DISP.p[a]->codigo, cod) == 0)
 			printf("nome:%s\ncreditos:%d\n",DISP.p[a]->nome,DISP.p[a]->creditos);
 	}
+	//pre requisitos
+	/*fp = fopen("prerequisitos.txt","r");
+	for(int a=0; a<31;a++){
+		fgets(linha, 100, fp);
+		token = strtok(linha, s);
+		printf("pre requisitos: %s",token);
+	}
+	fclose(fp);*/
+	
 }
 
 void cadastroAluno(){
@@ -53,7 +62,7 @@ void cadastroAluno(){
 	fgets(aux->login,1000,stdin);
 	printf("Digite a senha\n");
 	fgets(aux->senha,1000,stdin);
-	x->a[x->top]=*aux;//*=content of
+	x->a[x->top]=aux;
 	x->top = x->top+1;	
 	FILE *fp;
 	fp=fopen("Alunos.txt","a");
@@ -64,53 +73,32 @@ void cadastroAluno(){
 	fclose(fp);
 }
 
-Alunos* NewAlunos(){
-	Alunos * aux = (Alunos *)malloc(sizeof(Alunos));
-	aux->top=0;
-	return aux;
-}
+
 //rever a logica
-Aluno* NewAluno(){
+Aluno* newAluno(char *ra, char *nome, char *log, char *sen){
 	Aluno * aux = (Aluno *)malloc(sizeof(Aluno));
+	strcpy(aux->ra,ra);
+	strcpy(aux->nome,nome);
+	strcpy(aux->login,log);
+	strcpy(aux->senha,sen);
 	return aux;
 }
-int loginAluno(){
-	Aluno *a;
-	Alunos *x;
-	char login[1000];
-	char senha[1000];
-	int i,retorno,aux,cont=0;
-	while(cont==0){
-
-		
-		printf("Usuário:\n");
-		fgets(login,1000,stdin);
-		printf("Senha:\n");
-		fgets(senha,1000,stdin);
-		FILE *fp;
-		fp = fopen("Alunos.txt","r");
-		for(i=0;i<x->top;i++){
-			fscanf(fp,"%s", x->a[i].ra);		
-			fscanf(fp,"%s", x->a[i].nome);
-			fscanf(fp,"%s", x->a[i].login);	
-			fscanf(fp,"%s", x->a[i].senha);	
-		}
-		fclose(fp);
-		for(i=0;i<x->top;i++){
-			retorno = strcmp(login, x->a[i].login);
-			aux = strcmp(login, x->a[i].senha);
-			if((retorno && aux) == 0){
-				cont++;
-				break;		
-			}
-		}
-
-		if(cont==0){
-			printf("Login inválido tente novamente\n");
-			return 1;
-		}
-		else{
-			return 0;
-		}
+int loginAluno(Alunos *x){
+	FILE * fp = fopen("Alunos.txt","r");
+	char login[100],senha[100];
+	printf("Login:\n");
+	fgets(login,1000,stdin);
+	printf("Senha:\n");
+	fgets(senha,1000,stdin);
+	char ra[10],nome[100],log[100],sen[100];
+	for(int i=0;i<x->top;i++){
+		fscanf(fp,"%s\n",ra);		
+		fscanf(fp,"%s\n",nome);
+		fscanf(fp,"%s\n",log);	
+		fscanf(fp,"%s\n",sen);
+//eu n sei
+		x->a[i]=newAluno(ra,nome,log,sen);	
 	}
-}
+	//printf("%s %s %s %s",x->a[0]->ra,x->a[0]->nome,x->a[0]->login,x->a[0]->senha);
+	return 0;
+} 
