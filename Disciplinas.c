@@ -64,27 +64,41 @@ void ConsultaDisciplina(char cod[6]){
 	
 }
 
-void cadastroAluno(){
-	Aluno *aux;
-	Alunos *x;
-	
+void cadastroAluno(Alunos *x){
+	char ra[10];
+	char nome[100];
+	char login[100];
+	char senha[100];
 	printf("Digite o RA do Aluno:\n");
-	fgets(aux->ra,10,stdin);
+	scanf("%s",ra);
+	fflush(stdin);
+	
 	printf("Digite o nome do Aluno:\n");
-	fgets(aux->nome,1000,stdin);
+	fgets(nome,99,stdin);
+	fgets(nome,99,stdin);
+	fflush(stdin);
 	printf("Digite o login:\n");
-	fgets(aux->login,1000,stdin);
+	fgets(login,99,stdin);
+	fflush(stdin);
 	printf("Digite a senha\n");
-	fgets(aux->senha,1000,stdin);
-	x->a[x->top]=aux;
-	x->top = x->top+1;	
+	fgets(senha,99,stdin);
+	fflush(stdin);
+	
+	login[strlen(login)-1]='\0';
+	nome[strlen(nome)-1]='\0';
+	senha[strlen(senha)-1]='\0';
+
+	x->a[x->top]=newAluno(ra,nome,login,senha);
+	printf("-%s -%s -%s -%s\n",x->a[x->top]->ra,x->a[x->top]->nome,x->a[x->top]->login,x->a[x->top]->senha);
+		
 	FILE *fp;
-	fp=fopen("Alunos.txt","a");
-	fprintf(fp,"%s",aux->ra);
-	fprintf(fp,"%s",aux->nome);
-	fprintf(fp,"%s",aux->login);
-	fprintf(fp,"%s",aux->senha);
+	fp=fopen("Alunos.txt","a+");
+	fprintf(fp,"%s\n",x->a[x->top]->ra);
+	fprintf(fp,"%s\n",x->a[x->top]->nome);
+	fprintf(fp,"%s\n",x->a[x->top]->login);
+	fprintf(fp,"%s\n",x->a[x->top]->senha);
 	fclose(fp);
+	x->top = x->top+1;
 }
 
 
@@ -114,14 +128,13 @@ int loginAluno(Alunos *x){
 		fscanf(fp,"%s\n",nome);
 		fscanf(fp,"%s\n",log);	
 		fscanf(fp,"%s\n",sen);
-//eu n sei
 		x->a[i]=newAluno(ra,nome,log,sen);	
 	}
-	//printf("-%s -%s -%s -%s\n",login,senha,x->a[0]->login,x->a[0]->senha);
+	printf("-%s -%s -%s -%s\n",login,senha,x->a[1]->login,x->a[1]->senha);
 	for(int i=0;i<x->top;i++){
 			
-		if(strcmp (x->a[0]->login, login) == 0){
-			if(strcmp (x->a[0]->senha, senha) == 0){
+		if(strcmp (x->a[i]->login, login) == 0){
+			if(strcmp (x->a[i]->senha, senha) == 0){
 				return 0;
 			}	
 		}

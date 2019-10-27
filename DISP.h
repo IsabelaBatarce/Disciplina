@@ -13,7 +13,7 @@ typedef struct Alunos{
 }Alunos;
 
 Aluno * newAluno(char *ra, char *nome, char *log, char *sen);
-void cadastroAluno();
+void cadastroAluno(Alunos*x);
 int loginAluno(Alunos*x);
 
 //parte das disciplinas

@@ -1,14 +1,10 @@
 #include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include "DISP.h"
 
 
-int main (){
-	char busca[100];
-	int escolha=1;
-	Alunos * x = (Alunos *)malloc(sizeof(Alunos));
-	x->top=1;
+
+
+
+tem que achar um jeito de poder fazer login com outro user a n ser o primeiro
 	
 	if(loginAluno(x)==0){
 	while(escolha !=0){
@@ -27,7 +23,7 @@ int main (){
 			}
 			case 2:{
 				printf("***Cadastrar aluno*** \n");
-				cadastroAluno();
+				cadastroAluno(x);
 				break;
 			}
 			default:{
