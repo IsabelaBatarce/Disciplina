@@ -1,10 +1,14 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include "DISP.h"
 
 
-
-
-
-tem que achar um jeito de poder fazer login com outro user a n ser o primeiro
+int main (){
+	char busca[100];
+	int escolha=1;
+	Alunos * x = (Alunos *)malloc(sizeof(Alunos));
+	x->top=1;
 	
 	if(loginAluno(x)==0){
 	while(escolha !=0){
@@ -36,7 +40,7 @@ tem que achar um jeito de poder fazer login com outro user a n ser o primeiro
 		}
 	}
 	}else{
-		printf("login invalido");
+		printf("!!login invalido!!\n");
 	}
 		
 	

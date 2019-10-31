@@ -65,40 +65,26 @@ void ConsultaDisciplina(char cod[6]){
 }
 
 void cadastroAluno(Alunos *x){
-	char ra[10];
-	char nome[100];
-	char login[100];
-	char senha[100];
+	Aluno *aux;
+	
 	printf("Digite o RA do Aluno:\n");
-	scanf("%s",ra);
-	fflush(stdin);
-	
+	fgets(aux->ra,10,stdin);
+	fgets(aux->ra,10,stdin);
 	printf("Digite o nome do Aluno:\n");
-	fgets(nome,99,stdin);
-	fgets(nome,99,stdin);
-	fflush(stdin);
+	fgets(aux->nome,1000,stdin);
 	printf("Digite o login:\n");
-	fgets(login,99,stdin);
-	fflush(stdin);
+	fgets(aux->login,1000,stdin);
 	printf("Digite a senha\n");
-	fgets(senha,99,stdin);
-	fflush(stdin);
-	
-	login[strlen(login)-1]='\0';
-	nome[strlen(nome)-1]='\0';
-	senha[strlen(senha)-1]='\0';
-
-	x->a[x->top]=newAluno(ra,nome,login,senha);
-	printf("-%s -%s -%s -%s\n",x->a[x->top]->ra,x->a[x->top]->nome,x->a[x->top]->login,x->a[x->top]->senha);
-		
+	fgets(aux->senha,1000,stdin);
+	x->a[x->top]=aux;
+	x->top = x->top+1;	
 	FILE *fp;
-	fp=fopen("Alunos.txt","a+");
-	fprintf(fp,"%s\n",x->a[x->top]->ra);
-	fprintf(fp,"%s\n",x->a[x->top]->nome);
-	fprintf(fp,"%s\n",x->a[x->top]->login);
-	fprintf(fp,"%s\n",x->a[x->top]->senha);
+	fp=fopen("Alunos.txt","a");
+	fprintf(fp,"%s",aux->ra);
+	fprintf(fp,"%s",aux->nome);
+	fprintf(fp,"%s",aux->login);
+	fprintf(fp,"%s",aux->senha);
 	fclose(fp);
-	x->top = x->top+1;
 }
 
 
@@ -121,16 +107,20 @@ int loginAluno(Alunos *x){
 	fgets(senha,1000,stdin);
 	login[strlen(login)-1]='\0';
 	senha[strlen(senha)-1]='\0';
-	//printf("-%s-",login);
+	//problema na logica, o top sempre inicia como 1 
+	//ele so pega o 1 cadastro
 	char ra[10],nome[100],log[100],sen[100];
-	for(int i=0;i<x->top;i++){
+	int i=0;
+	while(!feof(fp)){
 		fscanf(fp,"%s\n",ra);		
 		fscanf(fp,"%s\n",nome);
 		fscanf(fp,"%s\n",log);	
 		fscanf(fp,"%s\n",sen);
-		x->a[i]=newAluno(ra,nome,log,sen);	
+
+		x->a[i++]=newAluno(ra,nome,log,sen);	
 	}
-	printf("-%s -%s -%s -%s\n",login,senha,x->a[1]->login,x->a[1]->senha);
+	x->top = i;
+	printf("top: %d\n",x->top);
 	for(int i=0;i<x->top;i++){
 			
 		if(strcmp (x->a[i]->login, login) == 0){
