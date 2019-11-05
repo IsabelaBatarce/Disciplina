@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "DISP.h"
-void ConsultaDisciplina(char cod[6]){
+void CarregaDisp(){
 	FILE * fp = fopen("Disciplinas.txt", "r");
 	const char s[2] = ",";
 	char *token;
@@ -34,13 +34,20 @@ void ConsultaDisciplina(char cod[6]){
 		DISP.p[a]=aux;	
 	}
 	fclose(fp);
+}
+void ConsultaDisciplina(char cod[6]){
+	const char s[2] = ",";
+	char *token;
+	char linha[100];
 	//AGORA SIM VAI PESQUISAR
 	for(int a=0; a<31;a++){
-		if(strcmp (DISP.p[a]->codigo, cod) == 0)
+		if(strcmp (DISP.p[a]->codigo, cod) == 0){
 			printf("nome:%s\ncreditos:%d\n",DISP.p[a]->nome,DISP.p[a]->creditos);
+		}
+			
 	}
 	//pre requisitos
-	fp = fopen("prerequisitos.txt","r");
+	FILE*fp = fopen("prerequisitos.txt","r");
 	for(int a=0; a<31;a++){
 		fgets(linha, 100, fp);
 		token = strtok(linha, s);
@@ -88,7 +95,7 @@ void cadastroAluno(Alunos *x){
 }
 
 
-//rever a logica
+
 Aluno* newAluno(char *ra, char *nome, char *log, char *sen){
 	Aluno * aux = (Aluno *)malloc(sizeof(Aluno));
 	strcpy(aux->ra,ra);
@@ -107,8 +114,6 @@ int loginAluno(Alunos *x){
 	fgets(senha,1000,stdin);
 	login[strlen(login)-1]='\0';
 	senha[strlen(senha)-1]='\0';
-	//problema na logica, o top sempre inicia como 1 
-	//ele so pega o 1 cadastro
 	char ra[10],nome[100],log[100],sen[100];
 	int i=0;
 	while(!feof(fp)){
@@ -125,9 +130,81 @@ int loginAluno(Alunos *x){
 			
 		if(strcmp (x->a[i]->login, login) == 0){
 			if(strcmp (x->a[i]->senha, senha) == 0){
+				strcpy(RAatual,x->a[i]->ra);
 				return 0;
 			}	
 		}
 	}
 	return 1;
 } 
+
+//Matricular aluno em materia - verificar prereq e <32 cred
+
+void Matricular(){
+	const char s[2] = ",";
+	char *token;
+	char linha[100], *sub;
+
+	int semestre = 0,creditos=0;
+	printf("digite o semestre: ");
+	scanf("%d",&semestre);
+	printf("Para sair digite XX000\n");
+	char matr[10];
+	while(strcmp ("XX000", matr) != 0){
+		printf("digite a Materia: ");
+		scanf("%s",matr);
+		//carregar o arquivo
+		FILE *fo;
+		fo = fopen("matricula.txt","r");
+		if(fo == NULL){
+			fo = fopen("matricula.txt","w");
+			fclose(fo);	
+		}
+		//verificar validade
+		for(int a=0; a<31;a++){
+			if(strcmp (DISP.p[a]->codigo, matr) == 0){
+				creditos+=DISP.p[a]->creditos;
+				if(creditos>32){
+					creditos-=DISP.p[a]->creditos;
+					printf("materia não adicionada\nLimite de creditos excedido\n");
+					break;
+				}
+				//ver prerequisito
+				for(int a=0; a<31;a++){
+					FILE*fp = fopen("prerequisitos.txt","r");
+					for(int b=0; b<31;b++){
+						fgets(linha, 100, fp);
+						token = strtok(linha, s);
+						int test=0;
+						for(int b=0;b<2;b++) {
+							if(b==0){
+								if(strcmp (token, matr) == 0){
+									test=1;
+								}
+							}
+							if((b==1)&&(test==1)){
+								for(int c=0; c<31;c++){
+									strcpy(Linha2,token);
+								}
+								test=0;
+							}
+							token = strtok(NULL, s);
+							
+						}
+					}
+					fclose(fp);
+					//comparar prerequisito
+					for(int a=0; a<31;a++){
+						fgets(linha, 100, fo);
+						sub =	strstr(linha,Linha2);
+						if(sub != NULL){
+							sub = strstr(Linha,RAatual);
+						}
+					}
+				}
+			}	
+		}
+		
+	}
+	
+}

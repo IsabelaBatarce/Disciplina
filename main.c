@@ -11,10 +11,13 @@ int main (){
 	x->top=1;
 	
 	if(loginAluno(x)==0){
+	CarregaDisp();
 	while(escolha !=0){
 		printf("**** MENU ****\n0 - SAIR \n");
 		printf("1 - Buscar disciplina \n");
 		printf("2 - Cadastrar aluno \n");
+		printf("3 - Matricula em materias \n");
+		printf("4 - Atualizar Notas e Faltas \n");
 		scanf("%d",&escolha);	
 			
 		switch(escolha){
@@ -30,9 +33,19 @@ int main (){
 				cadastroAluno(x);
 				break;
 			}
+			case 3:{
+				printf("***Realizar matricula*** \n");
+				Matricular();
+				break;
+			}
+			case 4:{
+				printf("***Notas e Faltas*** \n");
+				//chamada de função
+				break;
+			}
 			default:{
 				fflush(stdin);
-				if(escolha > 2)		
+				if(escolha > 4)		
 					printf("****Opcao Invalida****\n");
 				
 			}
