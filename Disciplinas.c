@@ -138,73 +138,8 @@ int loginAluno(Alunos *x){
 	return 1;
 } 
 
-//Matricular aluno em materia - verificar prereq e <32 cred
 
-void Matricular(){
-	const char s[2] = ",";
-	char *token;
-	char linha[100], *sub;
 
-	int semestre = 0,creditos=0;
-	printf("digite o semestre: ");
-	scanf("%d",&semestre);
-	printf("Para sair digite XX000\n");
-	char matr[10];
-	while(strcmp ("XX000", matr) != 0){
-		printf("digite a Materia: ");
-		scanf("%s",matr);
-		//carregar o arquivo
-		FILE *fo;
-		fo = fopen("matricula.txt","r");
-		if(fo == NULL){
-			fo = fopen("matricula.txt","w");
-			fclose(fo);	
-		}
-		//verificar validade
-		for(int a=0; a<31;a++){
-			if(strcmp (DISP.p[a]->codigo, matr) == 0){
-				creditos+=DISP.p[a]->creditos;
-				if(creditos>32){
-					creditos-=DISP.p[a]->creditos;
-					printf("materia não adicionada\nLimite de creditos excedido\n");
-					break;
-				}
-				//ver prerequisito
-				for(int a=0; a<31;a++){
-					FILE*fp = fopen("prerequisitos.txt","r");
-					for(int b=0; b<31;b++){
-						fgets(linha, 100, fp);
-						token = strtok(linha, s);
-						int test=0;
-						for(int b=0;b<2;b++) {
-							if(b==0){
-								if(strcmp (token, matr) == 0){
-									test=1;
-								}
-							}
-							if((b==1)&&(test==1)){
-								for(int c=0; c<31;c++){
-									strcpy(Linha2,token);
-								}
-								test=0;
-							}
-							token = strtok(NULL, s);
-							
-						}
-					}
-					fclose(fp);
-					//comparar prerequisito
-					for(int a=0; a<31;a++){
-						fgets(linha, 100, fo);
-						sub =	strstr(linha,Linha2);
-						if(sub != NULL){
-							sub = strstr(Linha,RAatual);
-						}
-					}
-				}
-			}	
-		}
-		
-	}
+
 	
-}
+
