@@ -84,17 +84,17 @@ void Matricular(){
 							}
 						}
 						if((b==1)&&(valido==1)){
-							printf("cursou\n");
+							
 							printf("tok-%s mat-%s\n",auxtok,vai);
-							if(strcmp (auxtok, linha2) == 0){
-								printf("OI\n");
-								fclose(fo);
+							valido = 0;
+							printf("lin2 = %s\n",linha2);
+							if(strcmp(auxtok,linha2)==0){
+								printf("hey");
 								fo = fopen("matricula.txt","a");
 								fprintf(fo,"%s,%s,%d\n",RAatual,matr,semestre);
 								fclose(fo);
-								fo = fopen("matricula.txt","r");
-							}
-							valido = 0;
+								
+							}	
 						}
 						auxtok = strtok(NULL, ",");	
 					}
