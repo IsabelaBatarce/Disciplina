@@ -40,7 +40,7 @@ int main (){
 			}
 			case 4:{
 				printf("***Notas e Faltas*** \n");
-				//chamada de função
+				atualizarNotas();
 				break;
 			}
 			default:{

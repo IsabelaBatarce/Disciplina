@@ -28,6 +28,19 @@ typedef struct Disciplinas{
     int top;
 }Disciplinas;
 
+typedef struct Matricula{
+	char semestre;
+	char disciplina[6];
+	char ra;
+}Matricula;
+
+typedef struct Matriculas{
+    Matricula *m[1000];
+    int top;
+}Matriculas;
+
+
+void atualizarNotas();
 void CarregaDisp();
 
 void ConsultaDisciplina(char cod[5]);

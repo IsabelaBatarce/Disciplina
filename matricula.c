@@ -106,3 +106,59 @@ void Matricular(){
 		}
 	}
 }
+
+/*void atualizarNotas(){
+		Matriculas m;
+		char res;
+		char tete;
+		int i;
+		FILE*fp = fopen("matricula.txt","r");
+		for(i=0;i<3;i++){
+			Matricula * aux = (Matricula *)malloc(sizeof(Matricula));
+                        fscanf(fp,"%s,",&res);
+                        do{
+        			strcpy(tete, res);
+        			
+    			}while(res!=',');
+    
+                        m.m[i]=aux;
+			printf("%s\n",aux->disciplina);
+		}
+		fclose(fp);
+
+}*/
+
+
+void atualizarNotas(){
+	FILE * fp = fopen("matricula.txt", "r");
+	const char s[2] = ",";
+	char *token;
+	char linha[100];
+	Matriculas m;
+	for(int a=0; a<31;a++){
+		Matricula * aux = (Matricula *)malloc(sizeof(Matricula));
+		fgets(linha, 100, fp);
+		token = strtok(linha, s);
+		for(int b=0;b<3;b++) {
+        	if(b==0){
+			char sub[6];
+			for(int ee=0;ee<5;ee++){
+				sub[ee] = token[ee];
+			}
+			strcpy(aux->ra,token);
+				//printf( "%s\n", aux->codigo);
+		}
+		if(b==1){
+			strcpy(aux->disciplina,token);
+			//printf( "%s\n", aux->nome);
+		}
+		if(b==2){
+			strcpy(aux->semestre,token);
+			//printf( "%d\n", aux->creditos);
+		}
+    		token = strtok(NULL, s);
+   		}
+		m.m[a]=aux;	
+	}
+	fclose(fp);
+}
