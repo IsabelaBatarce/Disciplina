@@ -142,7 +142,7 @@ void atualizarNotas(){
 		for(int b=0;b<3;b++) {
         	if(b==0){
 				strcpy(&aux->ra,token);
-				//printf( "RA - %s\n",aux->ra);
+				
 			}
 			if(b==1){
 				strcpy(aux->disciplina,token);
@@ -157,15 +157,27 @@ void atualizarNotas(){
 		m.m[m.top++]=aux;	
 	}
 	fclose(fp);
-	
+
+	FILE * fo = fopen("notas.txt","a");
 	int semestre=0;
 	//procurar disciplinas já cursadas
 	printf("digite o semestre desejado: ");
 	scanf("%d",&semestre);
 	printf("disciplinas cursadas\n ");
-
+	
 	for(int a=0;a<m.top;a++){
-		if((m.m[a]->ra==RAatual)&&(m.m[a]->semestre==semestre))
+		if((strcmp(m.m[a]->ra,RAatual)==0)&&(m.m[a]->semestre==semestre)){
 			printf(" - %s\n",m.m[a]->disciplina);
+			printf("digite a nota: ");
+			int nota;
+			scanf("%d",&nota);
+			printf("digite a porcentagem de presença : %");
+			int falta;
+			scanf("%d",&falta);
+			fprintf("%d,%d,%d,%d",RAatual,m.m[a]->disciplina,nota,falta);
+		}
 	}
+	
+	
+		
 }
