@@ -29,9 +29,11 @@ typedef struct Disciplinas{
 }Disciplinas;
 //matriculas
 typedef struct Matricula{
-	char semestre;
+	char semestre[2];
 	char disciplina[6];
-	char ra;
+	char ra[10];
+	char nota[4];
+	char falta[4];
 }Matricula;
 
 typedef struct Matriculas{
