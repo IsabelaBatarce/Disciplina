@@ -27,7 +27,7 @@ typedef struct Disciplinas{
     Disciplina *p[100];
     int top;
 }Disciplinas;
-
+//matriculas
 typedef struct Matricula{
 	char semestre;
 	char disciplina[6];

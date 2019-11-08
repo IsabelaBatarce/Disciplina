@@ -145,7 +145,7 @@ void atualizarNotas(){
 			for(int ee=0;ee<5;ee++){
 				sub[ee] = token[ee];
 			}
-			strcpy(aux->ra,token);
+			strcpy(aux->ra,sub);
 				//printf( "%s\n", aux->codigo);
 		}
 		if(b==1){
