@@ -50,7 +50,7 @@ void Matricular(){
 				}
 				if((b==1)&&(test==1)){
 					strcpy(linha2,token);
-					//printf("Pre requisito = %s",linha2);
+					
 					linha2[strlen(linha2)-1]='\0';
 					test=0;
 				}
@@ -60,36 +60,36 @@ void Matricular(){
 		}
 		fclose(fp);
 		if(strcmp(linha2,"--")==0){
-			printf("foi\n");
+			
 			fo = fopen("matricula.txt","a");
 			fprintf(fo,"%s,%s,%d\n",RAatual,matr,semestre);
 			fclose(fo);
 			strcpy(linha2,"a");//reseta a variavel pra n salvar o XX000
 		}
 		else{
-			printf("deu else\n");
+			
 			fo = fopen("matricula.txt","r");
 			token = strtok(linha2, "/");
 			char vai[100],*auxtok;
 			while (token != NULL) { 
-				//printf("%s\n", token); 
+				
 				while(fgets(vai, 100, fo)!= NULL){//vasculha arquivo atras dos prereq
-					//fgets(vai, 100, fo);
+					
 					auxtok = strtok(vai, ",");
 					for(int b=0;b<3;b++) {
 						if(b==0){
-							//printf("%s\n", auxtok); 
+							
 							if(strcmp (auxtok, RAatual) == 0){
 								valido=1;
 							}
 						}
 						if((b==1)&&(valido==1)){
 							
-							printf("tok-%s mat-%s\n",auxtok,vai);
+							//printf("tok-%s mat-%s\n",auxtok,vai);
 							valido = 0;
-							printf("lin2 = %s\n",linha2);
+							//printf("lin2 = %s\n",linha2);
 							if(strcmp(auxtok,linha2)==0){
-								printf("hey");
+								//printf("hey");
 								fo = fopen("matricula.txt","a");
 								fprintf(fo,"%s,%s,%d\n",RAatual,matr,semestre);
 								fclose(fo);
@@ -134,31 +134,38 @@ void atualizarNotas(){
 	const char s[2] = ",";
 	char *token;
 	char linha[100];
-	Matriculas m;
-	for(int a=0; a<31;a++){
+	Matriculas m ;
+	while(fgets(linha, 100, fp)!= NULL){
 		Matricula * aux = (Matricula *)malloc(sizeof(Matricula));
-		fgets(linha, 100, fp);
+		//fgets(linha, 100, fp);
 		token = strtok(linha, s);
 		for(int b=0;b<3;b++) {
         	if(b==0){
-			char sub[6];
-			for(int ee=0;ee<5;ee++){
-				sub[ee] = token[ee];
+				strcpy(&aux->ra,token);
+				//printf( "RA - %s\n",aux->ra);
 			}
-			strcpy(aux->ra,sub);
-				//printf( "%s\n", aux->codigo);
-		}
-		if(b==1){
-			strcpy(aux->disciplina,token);
-			//printf( "%s\n", aux->nome);
-		}
-		if(b==2){
-			strcpy(aux->semestre,token);
-			//printf( "%d\n", aux->creditos);
-		}
-    		token = strtok(NULL, s);
+			if(b==1){
+				strcpy(aux->disciplina,token);
+				//printf( "%s\n", aux->nome);
+			}
+			if(b==2){
+				strcpy(&aux->semestre,token);
+				//printf( "%d\n", aux->creditos);
+			}
+				token = strtok(NULL, s);
    		}
-		m.m[a]=aux;	
+		m.m[m.top++]=aux;	
 	}
 	fclose(fp);
+	
+	int semestre=0;
+	//procurar disciplinas já cursadas
+	printf("digite o semestre desejado: ");
+	scanf("%d",&semestre);
+	printf("disciplinas cursadas\n ");
+
+	for(int a=0;a<m.top;a++){
+		if((m.m[a]->ra==RAatual)&&(m.m[a]->semestre==semestre))
+			printf(" - %s\n",m.m[a]->disciplina);
+	}
 }
