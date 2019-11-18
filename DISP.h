@@ -51,3 +51,4 @@ void Matricular();
 
 Disciplinas DISP;
 
+void Cria_Historico();
