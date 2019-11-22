@@ -18,6 +18,7 @@ int main (){
 		printf("2 - Cadastrar aluno \n");
 		printf("3 - Matricula em materias \n");
 		printf("4 - Atualizar Notas e Faltas \n");
+		printf("5 - Imprimir Historico \n");
 		scanf("%d",&escolha);	
 			
 		switch(escolha){
@@ -43,9 +44,14 @@ int main (){
 				atualizarNotas();
 				break;
 			}
+			case 5:{
+				printf("***Impressão de Historico*** \n");
+				Cria_Historico(x);
+				break;
+			}
 			default:{
 				fflush(stdin);
-				if(escolha > 4)		
+				if(escolha > 5)		
 					printf("****Opcao Invalida****\n");
 				
 			}

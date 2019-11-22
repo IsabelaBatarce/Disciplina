@@ -51,4 +51,5 @@ void Matricular();
 
 Disciplinas DISP;
 
-void Cria_Historico();
+void Cria_Historico(Alunos*x);
+float Calcula_CR(char*RA);

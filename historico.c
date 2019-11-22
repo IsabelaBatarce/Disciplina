@@ -3,7 +3,7 @@
 #include <string.h>
 #include "DISP.h"
 
-void Cria_Historico(){
+void Cria_Historico(Alunos*x){
 	printf("criando documento....\n");
     char nome[15];
     strcpy(nome,RAatual);
@@ -30,56 +30,24 @@ void Cria_Historico(){
     }
 	
     fclose(alun);
-	
-    //usando o FILE dos alunos para calcular o cr
-    alun = fopen("matricula.txt","r");
-    float CR=0;
-    float verifica=0,Cred=0,Parcial=0,Parcial2=0;
-
-    while(!feof(alun)){
-        char linha[100];
-        char *token;
-        
-		fgets(linha,99,alun);
-		token=strtok(linha,",");
-	
-        for(int a=0;a<5;a++){
-            //procurar as coisas no matricula
-			
-			if(token== NULL)
-				break;
-            if((a == 0)&&(strcmp(token,RAatual)==0)){
-                verifica = 1;
-            }
-            if ((a == 1)&&(verifica == 1)){
-                //procurar no vetor de disciplinas
-                for(int b=0;b<31;b++){
-                    if(strcmp(token,DISP.p[b]->codigo)){
-                        Cred = DISP.p[b]->creditos;
-                        Parcial += DISP.p[b]->creditos;
-                    }
-                }
-            }
-            if ((a == 3)&&(verifica == 1)){
-                Parcial2 += Cred*strtof(token,NULL);
-				
-            }
-            token = strtok(NULL,",");
-        }
-        verifica = 0;
-    }
-	fclose(alun);
-    CR = Parcial2/Parcial;
 	fp = fopen(nome,"a");
-    fprintf(fp,"Coeficiente de Rendimento: %1.2f \n",CR);
+    fprintf(fp,"Coeficiente de Rendimento: %1.2f \n",Calcula_CR(RAatual));
+	//PARTE DA CLARRIFICAÇÂO
+	int posicao=1;    
+	for(int a=0;a<x->top;a++){
+		if(Calcula_CR(RAatual)<Calcula_CR(x->a[a]->ra))
+		posicao++;
+	}
+	fprintf(fp,"Classificação %d/%d\n",posicao,x->top);
+	
     fprintf(fp,"\nDisciplina   Nota   Presenca(%c)	Situaçao\n",37);
     fclose(fp);
 
 
 	alun = fopen("matricula.txt","r");
     float nota=0,pres=0;
-    verifica=0;//reuso
-
+    int verifica=0;//reuso
+	
     while(!feof(alun)){
         char linha[100];
         char *token;
@@ -140,3 +108,55 @@ void Cria_Historico(){
     }
 	fclose(alun);
 }
+
+
+
+
+
+float Calcula_CR(char * RA){
+	//usando o FILE dos alunos para calcular o cr
+    FILE *alun = fopen("matricula.txt","r");
+    float CR=0;
+    float verifica=0,Cred=0,Parcial=0,Parcial2=0;
+
+    while(!feof(alun)){
+        char linha[100];
+        char *token;
+        
+		fgets(linha,99,alun);
+		token=strtok(linha,",");
+	
+        for(int a=0;a<5;a++){
+            //procurar as coisas no matricula
+			
+			if(token== NULL)
+				break;
+            if((a == 0)&&(strcmp(token,RA)==0)){
+                verifica = 1;
+            }
+            if ((a == 1)&&(verifica == 1)){
+                //procurar no vetor de disciplinas
+                for(int b=0;b<31;b++){
+                    if(strcmp(token,DISP.p[b]->codigo)){
+                        Cred = DISP.p[b]->creditos;
+                        Parcial += DISP.p[b]->creditos;
+                    }
+                }
+            }
+            if ((a == 3)&&(verifica == 1)){
+                Parcial2 += Cred*strtof(token,NULL);
+				
+            }
+            token = strtok(NULL,",");
+        }
+        verifica = 0;
+    }
+	fclose(alun);
+    CR = Parcial2/Parcial;
+	
+	return CR;
+
+}
+
+
+

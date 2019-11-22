@@ -100,7 +100,7 @@ void Matricular(){
 							}
 						}
 						auxtok = strtok(NULL, ",");
-					}if(cont!=1){
+					}if((cont!=1)&&(strcmp ("XX000", matr) != 0)){
 						printf("Não possuí os pré-requisitos\n");
 					}
 					cont =0;
