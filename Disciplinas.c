@@ -125,7 +125,7 @@ int loginAluno(Alunos *x){
 		x->a[i++]=newAluno(ra,nome,log,sen);	
 	}
 	x->top = i;
-	printf("top: %d\n",x->top);
+	
 	for(int i=0;i<x->top;i++){
 			
 		if(strcmp (x->a[i]->login, login) == 0){

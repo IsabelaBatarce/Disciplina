@@ -1,0 +1,15 @@
+Facultade de Tecnologia - UNICAMP 
+
+Relatório de matricula 
+
+Nome: Isabela 
+RA: 236985 
+Coeficiente de Rendimento: 0.24 
+Classificação 1/4
+
+Disciplina   Nota   Presenca(%)	Situaçao
+SI100       6.00	90.00	aprovado
+EB101       7.00	95.00	aprovado
+SI201       8.00	85.00	aprovado
+ST008       5.00	75.00	aprovado
+SI200       0.00	0.00	

@@ -100,16 +100,14 @@ void Matricular(){
 							}
 						}
 						auxtok = strtok(NULL, ",");
-					}if((cont!=1)&&(strcmp ("XX000", matr) != 0)){
-						printf("Não possuí os pré-requisitos\n");
 					}
-					cont =0;
 
 				}
 				token = strtok(NULL, "/");
 			}
 		}
 	}
+	strcpy(matr,"oi");
 }
 
 /*void atualizarNotas(){
@@ -175,7 +173,7 @@ void atualizarNotas(){
               	strcpy(aux->semestre,semestre);
 		strcpy(aux->nota,nota);
 		strcpy(aux->falta,falta);
-                printf( "%s,%s,%s,%s,%s\n", ra, cod,semestre,nota,falta);
+
 		m->m[m->top++]=aux;
 
 
@@ -196,7 +194,7 @@ void atualizarNotas(){
 		//printf("Raaautual:%s\n", RAatual);
  		//printf("Aux:%d\n", aux);
 	for(int a=0;a<m->top;a++){
-		printf("%s %s\n",m->m[a]->semestre,sem);
+		//printf("%s %s\n",m->m[a]->semestre,sem);
 		if((strcmp(m->m[a]->ra,RAatual)==0)&&(strcmp(m->m[a]->semestre,sem)==0)){
 			printf(" - %s\n",m->m[a]->disciplina);
 			printf("digite a nota: ");
